@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package lab1;
+
+message Task{
+    repeated string files = 1;
+    enum TaskType{
+        MAP = 0;
+        REDUCE = 1;
+    }
+    TaskType taskType = 2;
+    int32 taskId =3;
+}
+
+message Empty {}
+
+message GetNumReduceRep{
+    int32 numReduce = 1;
+}
+
+service Master{
+    rpc get_numReduce(Empty) returns(GetNumReduceRep);
+    rpc get_task(Empty) returns(Task);
+    rpc notify_finished_task(Task) returns(Empty);
+}
