@@ -20,7 +20,7 @@ vector<string> split_into_words(const string& content){
     return res;
 }
 
-vector<pair<string,string>> map(const string &filename,const string &content){
+vector<pair<string,string>> map_func(const string &filename,const string &content){
     vector<pair<string,string>> res;
     auto words = split_into_words(content);
     for(const auto &word : words){
@@ -29,6 +29,6 @@ vector<pair<string,string>> map(const string &filename,const string &content){
     return res;
 }
 
-string reduce(const string &key,const vector<string> &values){
+string reduce_func(const string &key,const vector<string> &values){
     return to_string(values.size());
 }
