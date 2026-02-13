@@ -8,11 +8,11 @@ RequestVoteCall::RequestVoteCall(lab2::RaftService::AsyncService *service,
                 responder_(&ctx_),
                 raft_(raft),
                 state_(State::CREATE){
-    Proceed(true);
+    proceed(true);
 }
 
 
-void RequestVoteCall::Proceed(bool ok){
+void RequestVoteCall::proceed(bool ok){
     if (!ok) {
         // ok=false 常见于：客户端取消、server shutdown
         delete this;

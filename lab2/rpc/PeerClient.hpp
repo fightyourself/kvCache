@@ -2,10 +2,8 @@
 #include <string>
 #include <memory>
 #include "grpcpp/grpcpp.h"
-#include "raft.h"
+#include "lab2/lab2.grpc.pb.h"
 using grpc::Channel;
-using grpc::ClientContext;
-using grpc::Status;
 struct PeerClient {
 	std::string addr_;
   	std::shared_ptr<grpc::Channel> channel_;

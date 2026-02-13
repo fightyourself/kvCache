@@ -3,5 +3,5 @@
 class CallDataBase{
 public:
     virtual ~CallDataBase() = default;
-    virtual void Proceed(bool ok) = 0;
+    virtual void proceed(bool ok) = 0;
 };

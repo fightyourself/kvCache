@@ -15,7 +15,7 @@ public:
                 grpc::ServerCompletionQueue *cq,
                 Raft *raft);
 
-    virtual void Proceed(bool ok) override;
+    virtual void proceed(bool ok) override;
 
 private:
     enum class State { CREATE, PROCESS, FINISH };

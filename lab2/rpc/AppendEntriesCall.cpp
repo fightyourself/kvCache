@@ -9,10 +9,10 @@ AppendEntriesCall::AppendEntriesCall(lab2::RaftService::AsyncService* service,
                     responder_(&ctx_),
                     raft_(raft),
                     state_(State::CREATE) {
-    Proceed(true);
+    proceed(true);
 }
 
-void AppendEntriesCall::Proceed(bool ok){
+void AppendEntriesCall::proceed(bool ok){
     if (!ok) {
         // ok=false 常见于：客户端取消、server shutdown
         delete this;
@@ -35,10 +35,10 @@ void AppendEntriesCall::Proceed(bool ok){
 
         // 把处理投递到 Raft(Asio)线程，避免锁
         raft_->post([this]() {
-        rep_ = raft_->handle_append_entries(req_);
+            rep_ = raft_->handle_append_entries(req_);
 
-        state_ = State::FINISH;
-        responder_.Finish(rep_, grpc::Status::OK, this);
+            state_ = State::FINISH;
+            responder_.Finish(rep_, grpc::Status::OK, this);
         });
         return;
     }

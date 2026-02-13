@@ -2,8 +2,6 @@
 #include "CallDataBase.h"
 #include "grpcpp/grpcpp.h"
 #include "lab2/lab2.grpc.pb.h"
-using grpc::Server;
-using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 using lab2::AppendEntriesRequest;
@@ -15,7 +13,7 @@ public:
                     grpc::ServerCompletionQueue* cq,
                     Raft* raft);
 
-    virtual void Proceed(bool ok) override;
+    virtual void proceed(bool ok) override;
   
 
 private:

@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
     Raft raft(addrs,me,io_context);
     RaftRpcServer server(&raft);
     server.start(addrs[me]);
-    
     io_context.run();
+    server.stop();
     return 0;
 }

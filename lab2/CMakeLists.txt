@@ -8,15 +8,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(raft 
     raft.cpp
     raftRole.hpp
-    PeerClient.hpp
 )
-target_link_libraries(raft PRIVATE proto_lab2)
 
 add_subdirectory(rpc)
 
+target_link_libraries(raft PRIVATE proto_lab2)
+target_link_libraries(raft PUBLIC rpc_client)
+
 target_include_directories(raft PUBLIC .)
 
-
 add_executable(main main.cpp)
-target_link_libraries(main PRIVATE raft rpc)
+target_link_libraries(main PRIVATE raft rpc_server)
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "grpc/grpc.h"
-#include "PeerClient.hpp"
+#include "grpcpp/grpcpp.h"
+#include "lab2/lab2.grpc.pb.h"
 #include <memory>
 #include <thread>
 class Raft;
