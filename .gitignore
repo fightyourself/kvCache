@@ -1,3 +1,5 @@
 .vscode
 /generated
 /build
+log_*
+config_*

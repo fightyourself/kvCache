@@ -2,12 +2,17 @@ syntax="proto3";
 
 package lab2;
 
+message Entry{
+    uint64 term=1;
+    string command=2;
+}
+
 message AppendEntriesRequest{
     uint64 term=1;
     int32 leader_id=2;
     uint64 prev_log_index=3;
     uint64 prev_log_term=4;
-    repeated string entries=5;
+    repeated Entry entries=5;
     uint64 leader_commit=6;
 }
 
@@ -29,7 +34,22 @@ message RequestVoteReply{
     bool vote_granted=2;
 }
 
+message ProposeRequest{
+    string command = 1;
+    bool wait_for_commit = 2;
+}
+
+message ProposeReply{
+    bool wrong_leader = 1;
+    int32 leader_id = 2;
+    uint64 index = 3;
+    uint64 term = 4;
+    string error = 5;
+}
+
+
 service RaftService{
     rpc append_entries(AppendEntriesRequest) returns(AppendEntriesReply);
     rpc request_vote(RequestVoteRequest) returns(RequestVoteReply);
+    rpc propose(ProposeRequest) returns(ProposeReply);
 }

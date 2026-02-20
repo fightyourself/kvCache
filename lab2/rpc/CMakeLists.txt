@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(rpc_server
     AppendEntriesCall.cpp
     RequestVoteCall.cpp
+    ProposeCall.cpp
     RaftRpcServer.cpp
-    
 )
 # 链接 proto_generated 库
 target_link_libraries(rpc_server PUBLIC proto_lab2)

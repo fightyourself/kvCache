@@ -19,16 +19,6 @@ RaftRpcClient::~RaftRpcClient(){
     stop();
 }
 
-
-void RaftRpcClient::send_append_entries_to_all(const AppendEntriesRequest& req){
-    for(int i = 0; i<peers_.size(); ++i){
-        if(i == me_) continue;
-        AppendEntriesRequest temp = req;
-        auto call = new AppendEntriesClientCall(peers_[i]->stub_.get(),cq_.get(), raft_, i);
-        call->start(std::move(temp));
-    }
-}
-
 void RaftRpcClient::send_request_vote_to_all(const RequestVoteRequest& req){
     for(int i = 0; i<peers_.size(); ++i){
         if(i == me_) continue;
@@ -36,6 +26,11 @@ void RaftRpcClient::send_request_vote_to_all(const RequestVoteRequest& req){
         auto call = new RequestVoteClientCall(peers_[i]->stub_.get(),cq_.get(),raft_, i);
         call->start(std::move(temp));
     }
+}
+
+void RaftRpcClient::send_append_entries_with_id(const AppendEntriesRequest& req, int id, uint64_t last_index){
+    auto call = new AppendEntriesClientCall(peers_[id]->stub_.get(),cq_.get(),raft_,id,last_index);
+    call->start(std::move(req));
 }
 
 void RaftRpcClient::start(){

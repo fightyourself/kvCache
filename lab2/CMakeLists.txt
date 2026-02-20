@@ -11,12 +11,15 @@ add_library(raft
 )
 
 add_subdirectory(rpc)
+add_subdirectory(persistence)
 
 target_link_libraries(raft PRIVATE proto_lab2)
-target_link_libraries(raft PUBLIC rpc_client)
+target_link_libraries(raft PUBLIC rpc_client persistence rpc_server)
 
 target_include_directories(raft PUBLIC .)
 
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE raft rpc_server)
 
+add_executable(cli raft_cli.cpp)
+target_link_libraries(cli PRIVATE proto_lab2)

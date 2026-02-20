@@ -17,8 +17,8 @@ class RaftRpcClient{
 public:
     RaftRpcClient(const std::vector<std::string>& peer_address, int me, Raft *raft);
     ~RaftRpcClient();
-    void send_append_entries_to_all(const AppendEntriesRequest& req);
     void send_request_vote_to_all(const RequestVoteRequest& req);
+    void send_append_entries_with_id(const AppendEntriesRequest& req, int id, uint64_t last_index);
     void start();
     void stop();
     

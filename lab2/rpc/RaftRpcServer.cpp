@@ -1,6 +1,7 @@
 #include "RaftRpcServer.h"
 #include "AppendEntriesCall.h"
 #include "RequestVoteCall.h"
+#include "ProposeCall.h"
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -19,7 +20,8 @@ void RaftRpcServer::start(const std::string& addr){
     // 为每个 RPC 类型预创建一个 CallData
     new AppendEntriesCall(&service_, cq_.get(), raft_);
     new RequestVoteCall(&service_,cq_.get(),raft_);
-    
+    new ProposeCall(&service_,cq_.get(),raft_);
+
     cq_thread_ = std::thread([this]() { pool_cp_loop(); });
 }
 

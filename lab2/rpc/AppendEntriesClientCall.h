@@ -10,7 +10,7 @@ using lab2::AppendEntriesReply;
 class Raft;
 class AppendEntriesClientCall final : public CallDataBase{
 public:
-    AppendEntriesClientCall(lab2::RaftService::Stub *stub, CompletionQueue *cq, Raft *raft, int id);
+    AppendEntriesClientCall(lab2::RaftService::Stub *stub, CompletionQueue *cq, Raft *raft, int id, uint64_t last_index);
     virtual void proceed(bool ok) override;
     void start(const AppendEntriesRequest& req);
 
@@ -21,6 +21,7 @@ private:
     Raft *raft_;
     
     int id_;
+    uint64_t last_index_;
     AppendEntriesReply rep_;
     AppendEntriesRequest req_;
 
