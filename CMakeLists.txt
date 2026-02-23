@@ -21,18 +21,30 @@ include(protobuf_grpc)
 # add_subdirectory(lab1)
 
 # lab2
+# add_proto_library(
+#   TARGET proto_lab3
+#   PROTO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/proto
+#   PROTOS
+#     lab2/lab2.proto
+#   OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated
+# )
+# add_subdirectory(lab2)
+
+# lab3
 add_proto_library(
-  TARGET proto_lab2
+  TARGET proto_kvService
   PROTO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/proto
   PROTOS
-    lab2/lab2.proto
+    lab3/kvService.proto
   OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated
 )
-add_subdirectory(lab2)
+add_proto_library(
+  TARGET proto_raftService
+  PROTO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/proto
+  PROTOS
+    lab3/raftService.proto
+  OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated
+)
 
+add_subdirectory(lab3)
 
-# add_executable(server server.cc)
-# target_link_libraries(server PRIVATE proto_generated)
-
-# add_executable(client client.cc)
-# target_link_libraries(client PRIVATE proto_generated)

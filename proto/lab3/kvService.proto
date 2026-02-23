@@ -1,0 +1,47 @@
+syntax="proto3";
+
+package kvService;
+
+message KvOp{
+    enum OpType{
+        GET = 0;
+        PUT = 1;
+        APPEND = 2;
+    }
+    OpType opType = 1;
+    string key = 2;
+    string value = 3;
+}
+
+message GetRequest{
+    KvOp op = 1;
+    int32 client_id = 2;
+    int32 request_id = 3;
+}
+
+message GetReply{
+    enum State{
+        SUCCESS = 0;
+        NOT_FOUND = 1;
+    }
+    bool wrong_leader = 1;
+    int32 leader_id = 2;
+    State state = 3;
+    string value = 4;
+}
+
+message PutAppendRequest{
+    KvOp op = 1;
+    int32 client_id = 2;
+    int32 request_id = 3;
+}
+
+message PutAppendReply{
+    bool wrong_leader = 1;
+    int32 leader_id = 2;
+}
+
+service KvService{
+    rpc get(GetRequest) returns(GetReply);
+    rpc put_append(PutAppendRequest) returns(PutAppendReply);
+}
